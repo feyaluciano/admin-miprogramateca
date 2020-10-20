@@ -1,0 +1,68 @@
+<div class="hold-transition login-page" style="background-image: url('assets/img/fondo-login.png');">
+    <div class="login-box">      
+      <!-- /.login-logo -->
+      <div class="card">
+        <div class="card-body login-card-body">             
+            <div class="lockscreen-wrapper">
+                <div class="lockscreen-logo">
+                  <a href="../../index2.html"><b>Admin</b></a>
+                </div>
+                <!-- User name -->
+                <div class="lockscreen-name" style="text-align: center;">{{nombreConectado}} {{apellidoConectado}}</div>              
+                <!-- START LOCK SCREEN ITEM -->
+                <div class="lockscreen-item">
+                  <!-- lockscreen image -->
+                  <div class="lockscreen-image">
+                    <img src="assets/img/user2-160x160.jpg" alt="User Image">
+                  </div>
+                  <!-- /.lockscreen-image -->              
+                  <!-- lockscreen credentials (contains the form) -->
+                  <form class="lockscreen-credentials" [formGroup]="reingresarFormulario"  (ngSubmit)="reingresar()" >
+                    <div class="input-group">
+                      <input formControlName="password" type="password" class="form-control" placeholder="password">                                                         
+                      <div class="input-group-append">
+                        <button type="button" type="submit" class="btn">
+                          <i class="fas fa-arrow-right text-muted"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <div class="input-group">
+                      <div style="color:#FF084E" *ngIf="reingresarFormulario.get('password').hasError('required') && reingresarFormulario.get('password').touched">Ingrese un password</div>
+                      <div style="color:#FF084E" class="mb-1" *ngIf="mostrarMensajeError">Contraseña incorecta  </div>
+                    </div>
+                  </form>
+                  <!-- /.lockscreen credentials -->              
+                </div>
+                <!-- /.lockscreen-item -->
+                <div class="help-block text-center">
+                  Ingrese su password y acceda a su sesión
+                </div>
+                <div class="text-center">
+                  <a href="#/login">O ingrese con otro usuario</a>
+                </div>                
+              </div>                      
+        </div>
+        <!-- /.login-card-body -->
+      </div>
+    </div>
+    </div>
+    <!-- /.login-box -->
+
+
+    <!-- <div class="modal" tabindex="-1" role="dialog" id="modal1" >
+      <div class="modal-dialog" role="document" >
+        <div class="modal-content" >
+          <div class="modal-header">             
+            <button type="button" class="close"  (click)="cerrarMensaje()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p style="color:#333333;">{{mensajeAlIngresarORegistrar}}</p>
+          </div>
+          <div class="modal-footer">
+                       
+          </div>
+        </div>
+      </div>
+    </div> -->

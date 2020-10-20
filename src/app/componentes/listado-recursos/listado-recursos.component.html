@@ -1,0 +1,227 @@
+<div class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+    
+      <app-header></app-header>
+    
+      <!-- Main Sidebar Container -->
+      <app-menu-izquierdo></app-menu-izquierdo>
+
+
+      <div class="content-wrapper">
+
+
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Listado de recursos</h1>
+              </div><!-- /.col -->
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"> <button type="button" [routerLink]="['/recurso/nuevo']" class="btn btn-info float-right"><i class="fas fa-plus"></i> Nuevo</button></li>
+                  <!-- <li class="breadcrumb-item active">Panel v1</li> -->
+                </ol>
+              </div><!-- /.col -->
+            </div><!-- /.row -->
+          </div><!-- /.container-fluid -->
+        </div>
+
+               
+        <!-- Content Header (Page header) -->
+       
+          <div class="container-fluid">
+
+<!------------------------------        Codigo HTML Propio del componente      ------------------------>
+
+
+
+    <div class="row">
+
+
+      <div class="col-md-12">
+        <!--collapsed-card-->
+        <div class="card card-secondary ">
+          <div class="card-header">
+            <h3 class="card-title">Buscar</h3>
+
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            
+            <div class="form-group cleaXXrfix">
+              <form  [formGroup]="formBusqueda">                                                
+              <div class="container-fluid">
+                <div class="row mt-2">
+                   
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div class="col-md-2">
+                        <div class=" form-check  d-inline">
+                          <input type="checkbox" class="form-check-input" formControlName="ChkTitulo" id="ChkTitulo" name="ChkTitulo">                          
+                          <label for="buscar por título">
+                           Por título
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-md-3">
+                        <div class="form-group">                                    
+                          <input  formControlName="Titulo" type="text" id="Titulo" name="Titulo" class="form-control">
+                          <div style="color:#FF084E" *ngIf="formBusqueda.get('Titulo').hasError('required') && formBusqueda.get('Titulo').touched">Ingrese un Título</div>  
+                          <div style="color:#FF084E" *ngIf="formBusqueda.get('Titulo').hasError('pattern') && formBusqueda.get('Titulo').touched">Ingrese solo letras</div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-1">
+                      </div>
+                      <div class="col-md-2">
+                        <div class="form-group">
+                          <input type="checkbox" class="form-check-input" formControlName="ChkTipoRecurso" id="ChkTipoRecurso" name="ChkTipoRecurso"> 
+                          <label for="Buscar por tipo de recurso">
+                           Por categoría
+                          </label>
+                        </div>
+                      </div>
+                      <div class="col-md-3">                      
+                        <ng-select bindLabel="NombreTipoRecurso"
+                          placeholder="Seleccione"
+                          appendTo="body"
+                          formControlName="tiporecurso"
+                          [searchable]="true" 
+                          [clearable]="true">
+                          <ng-option [value]="item"  *ngFor="let item of tiposrecursos">{{item.NombreTipoRecurso}}</ng-option>
+                        </ng-select> 
+                        <div style="color:#FF084E" *ngIf="formBusqueda.get('tiporecurso').hasError('required') && formBusqueda.get('tiporecurso').touched">Seleccione</div> 
+                      </div>
+                    </div>
+                    <div class="row mt-3">
+                      <div class="col-md-3 offset-md-3">
+                        <button (click)="buscar(0,'inicial')" type="button"  class="btn btn-info btn-block"><i class="fas fa-search"></i> Buscar</button>                        
+                      </div>  
+                      <div class="col-md-3">
+                        <button  type="button"  (click)="cancelarBusqueda('cancel')" class="btn btn-info btn-block"><i class="fas fa-times-circle"></i> Cancelar</button>                        
+                      </div>                                 
+                    </div>                   
+                  </div>
+                  <div class="col-md-12">
+                    <div class="row">
+                     <div class="col-md-3 offset-md-4 mt-3 center">
+                      <div style="color:#FF084E" *ngIf="sinOpcionesSeleccionadas">Debe seleccionar un metódo de búsqueda</div>
+                     </div>
+                      </div>
+                  </div>
+                 
+                </div>
+              </div>
+            </form>
+
+
+              
+              
+           
+
+          
+           
+            
+          </div>
+
+            
+          </div>
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+      </div>
+
+
+      <div class="col-md-12">
+        <div class="card">
+          
+          <!-- /.card-header -->
+
+          <div class="overlay" id="cargandoTabla"><i class="fas fa-2x fa-sync-alt fa-spin"></i></div>
+          <div class="card-body table-responsive-sm p-0" style="height: 800px;">
+            <table class="table table-striped ">
+              <thead>
+                <tr>
+                  <th style="width: 1%;"  >#</th>
+                  <th style="width: auto;" >Titulo</th>
+                  <th>Tipo</th>
+                  <th  >Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let unrecurso of recursos; let i = index">
+                  <td>  {{unrecurso.IdRecurso}}</td>
+                  <td>{{unrecurso.Titulo}}</td>
+                  <td>
+                    {{unrecurso.tiporecurso.NombreTipoRecurso}}
+                  </td>
+                  <td>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                      </button>
+                      <ul class="dropdown-menu" >
+                        <!-- <li><a class="dropdown-item" style="cursor: pointer;"  href="#">Ver</a></li> -->
+                        <li><a class="dropdown-item" style="cursor: pointer;"  [routerLink]="['/recurso/editar/', unrecurso.IdRecurso]" href="#">Editar</a></li>
+                        <li><a class="dropdown-item" style="cursor: pointer;"  (click)=delete(unrecurso.IdRecurso)>Eliminar</a></li>
+                      </ul>
+                    </div>
+
+                  </td>
+                </tr>
+               
+              </tbody>
+            <ngb-pagination [maxSize]="5" *ngIf="showPagination"     [collectionSize]="totalItems" [(page)]="page"   (pageChange)="loadPage($event)"></ngb-pagination>
+
+            </table>
+          </div>          
+          <!-- /.card-body -->          
+        </div>
+        <!-- /.card -->        
+        <!-- /.card -->
+      </div>
+
+    </div>
+
+
+<!------------------------------  FIN      Codigo HTML Propio del componente      ------------------------>
+
+
+
+    <!-- /.card -->
+  </div>
+
+</div>
+  <app-footer></app-footer>
+    
+      <!-- Control Sidebar -->
+      <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+      </aside>
+      <!-- /.control-sidebar -->
+    </div>
+</div>
+<div class="modal fade" id="modal-eliminar" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content bg-danger">
+      <div class="modal-header">
+        <h4 class="modal-title">Eliminar</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Está seguro que desea eliminar este elemento?</p>
+      </div>
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
+        <button (click)="deleteConfirmacion()" type="button" class="btn btn-outline-light">Aceptar</button>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>

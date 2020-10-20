@@ -1,0 +1,112 @@
+<div class="hold-transition login-page" style="background-image: url('assets/img/fondo-login.png');">
+    <div class="login-box">
+      
+      <!-- /.login-logo -->
+      <div class="card">
+        <div class="card-body login-card-body">
+          <div class="login-logo">
+            <a href="../../index2.html"><b>Admin</b></a>
+          </div>
+    
+          <form [formGroup]="loginFormulario" (ngSubmit)="login()">
+            <div class="input-group mb-3">
+              <input formControlName="email" type="text" class="form-control" placeholder="Your Email *"  />
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-envelope"></span>
+                </div>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <div style="color:#FF084E" *ngIf="loginFormulario.get('email').hasError('required') && loginFormulario.get('email').touched">Ingrese un email</div>
+              <div style="color:#FF084E" *ngIf="loginFormulario.get('email').hasError('email') && loginFormulario.get('email').touched">Ingrese un email</div>
+            </div>
+            
+            <div class="input-group mb-3">
+              <input formControlName="password" type="password" class="form-control" placeholder="Tu password *"  />                    
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-lock"></span>
+                </div>
+              </div>
+              
+            </div>
+
+            <div class="input-group mb-3">
+              <div style="color:#FF084E" *ngIf="loginFormulario.get('password').hasError('required') && loginFormulario.get('password').touched">Ingrese un password</div>
+            </div>
+
+
+            <div class="input-group mb-3">
+              <div style="color:#FF084E" class="mb-1" *ngIf="mostrarMensajeError">Email o contraseña incorecta  </div>
+            </div>
+
+
+           
+
+            
+            
+            
+            <div class="row">
+              <div class="col-8">
+                <div class="icheck-primary">
+                  <input type="checkbox" id="remember">
+                  <label for="remember">
+                    Recordarme
+                  </label>
+                </div>
+              </div>
+              <!-- /.col -->
+              <div class="col-4">
+    
+               
+                <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
+              </div>
+              <!-- /.col -->
+            </div>
+          </form>
+    
+          <!-- <div class="social-auth-links text-center mb-3">
+            <p>- OR -</p>
+            <a href="#" class="btn btn-block btn-primary">
+              <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+            </a>
+            <a href="#" class="btn btn-block btn-danger">
+              <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+            </a>
+          </div> -->
+          <!-- /.social-auth-links -->
+    
+          <p class="mb-1">
+            <a href="forgot-password.html">Olvidé mi password</a>
+          </p>
+          <p class="mb-0">
+            <a href="register.html" class="text-center">Registrarme</a>
+          </p>
+        </div>
+        <!-- /.login-card-body -->
+      </div>
+    </div>
+    </div>
+    <!-- /.login-box -->
+
+
+    <div class="modal" tabindex="-1" role="dialog" id="modal1" >
+      <div class="modal-dialog" role="document" >
+        <div class="modal-content" >
+          <div class="modal-header">             
+            <button type="button" class="close"  (click)="cerrarMensaje()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p style="color:#333333;">{{mensajeAlIngresarORegistrar}}</p>
+          </div>
+          <div class="modal-footer">
+            
+            <!-- <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+          </div>
+        </div>
+      </div>
+    </div>

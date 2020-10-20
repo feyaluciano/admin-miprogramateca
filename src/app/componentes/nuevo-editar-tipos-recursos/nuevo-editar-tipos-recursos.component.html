@@ -1,0 +1,101 @@
+<div class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+    
+      <app-header></app-header>
+    
+      <!-- Main Sidebar Container -->
+      <app-menu-izquierdo></app-menu-izquierdo>
+
+
+      <div class="content-wrapper">
+
+
+        <div class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-6">
+                <h1 class="m-0 text-dark">{{AccionEntidad}}</h1>
+              </div><!-- /.col -->
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="#/panel">Panel</a></li>
+                  <!-- <li class="breadcrumb-item active">Panel v1</li> -->
+                </ol>
+              </div><!-- /.col -->
+            </div><!-- /.row -->
+          </div><!-- /.container-fluid -->
+        </div>
+
+
+        <!-- Content Header (Page header) -->        
+          <div class="container-fluid">
+
+<!------------------------------        Codigo HTML Propio del componente      ------------------------>
+
+
+
+    <div class="row ">      
+      <div class="offset-lg-3 col-md-6 col-lg-6 col-xs-12 off mt-2 ">
+        <div class="card card-primary ">
+          <div class="card-header">
+            <h3 class="card-title">{{AccionEntidad}}</h3>
+
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i>
+              </button>
+            </div>
+            <!-- /.card-tools -->
+          </div> 
+          <form  [formGroup]="form"   #eventForm="ngForm">                                   
+            <!-- input states -->
+            <div class="card-body">
+          <div class="col-12">  
+                <div class="form-group">
+                 
+                  <label class="col-form-label" for="inputSuccess"> Título</label>
+                  <input formControlName="NombreTipoRecurso" id="NombreTipoRecurso"   type="text" class="form-control"  >                  
+                    <div style="color:#FF084E" *ngIf="form.get('NombreTipoRecurso').hasError('required') && form.get('NombreTipoRecurso').touched">Ingrese un nombre para el tipo de recurso</div>  
+                    <div style="color:#FF084E" *ngIf="form.get('NombreTipoRecurso').hasError('pattern') && form.get('NombreTipoRecurso').touched">Ingrese solo letras</div>                   
+              </div>
+          </div>   
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile">                
+                <div class="text-center">                  
+                  <img class="img-fluid mb-2" id="imgTipoRecurso"  [src]="laimagen" alt="Imagen tipo recurso">
+                </div>                              
+                <input type="file" id="avatar" (change)="fileEvent($event)" #fileInput>
+                <input type="hidden" id="errorEnImagen" value="{{errorEnImagen}}">
+                <div style="color:#FF084E" *ngIf="errorEnImagen">La imagen debe ser de 300 x 150 y en formato jpg o png.</div>  
+               
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+                                                 
+              <div class="col-12 mb-3" >                              
+              <button (click)="guardar($event)" type="button" class="btn btn-block btn-primary">Guardar</button>
+            </div>
+              </div>                                    
+          </form>
+        </div>
+
+      </div>     
+    </div>
+
+<!------------------------------  FIN      Codigo HTML Propio del componente      ------------------------>
+
+
+
+    <!-- /.card -->
+  </div>
+</div>
+
+  <app-footer></app-footer>
+    
+      <!-- Control Sidebar -->
+      <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+      </aside>
+      <!-- /.control-sidebar -->
+    </div>
+</div>
